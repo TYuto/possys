@@ -35,7 +35,7 @@ import sys
 class Database:
     def __init__(self):
         # configファイルを参照
-        config = configparser.SafeConfigParser()
+        config = configparser.ConfigParser()
         config.read('setting.ini')
 
         # データベースを参照

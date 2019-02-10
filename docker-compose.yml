@@ -1,0 +1,27 @@
+
+version: "2"
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
+    volumes:
+       - "./docker/mysql/data:/var/lib/mysql"
+       - "./docker/mysql/init:/docker-entrypoint-initdb.d"
+    ports:
+       - 3306:3306
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      environment:
+          - PMA_ARBITRARY=1
+          - PMA_HOST=db
+      restart: always
+      ports:
+          - 8080:80
+      volumes:
+        - "./docker/phpmyadmin/sessions:/sessions"
+      links:
+          - db
